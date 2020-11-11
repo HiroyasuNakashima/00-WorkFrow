@@ -1,0 +1,3 @@
+2
+playerPx 400
+playerPy 300
