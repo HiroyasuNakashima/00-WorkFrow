@@ -1,8 +1,6 @@
 #pragma once
 #include"libOne.h"
 
-#define HP 20
-
 class CONTAINER {
 	class DATA* Data = 0;
 	int NumData = 0;
@@ -17,6 +15,8 @@ public:
 		//MAP
 		iroiroAllImg = loadImage("assets/IROIRO.png");
 		fieldImg = cutImage(iroiroAllImg, 0, 0, 32, 32);
+		//森
+		moriImg = cutImage(iroiroAllImg, 64, 32, 32, 32);
 		//橋
 		hashiTateImg = cutImage(iroiroAllImg, 44, 93, 32, 32);
 		hashiYokoImg = cutImage(iroiroAllImg, 0, 96, 32, 32);
@@ -25,16 +25,8 @@ public:
 		pushenterImg = loadImage("assets/PUSH_ENTER.png");
 		//GAMEOVER
 		gameoverImg = loadImage("assets/GAMEOVER.png");
-		//AITEM_WINDOW
-		aitemWindowImg = loadImage("assets/AITEM_WINDOW.png");
-		playerAiconImg = loadImage("assets/PLAYER_AICON.png");
-		weaponAiconImg = loadImage("assets/WEAPON_AICON.png");
-		kaihukuAiconImg = loadImage("assets/KAIHUKU_AICON.png");
-		hougyokuAiconImg = loadImage("assets/HOUGYOKU.png");
-		//TEXT_WINDOW
-		textWindowImg = loadImage("assets/TEXTWINDOW.png");
-		//HPバー
-		HpbarImg = loadImage("assets/HP_BAR.png");
+		//TEXT
+		textImg = loadImage("assets/TEXTWINDOW.png");
 		//PLAYER
 		playerAllImg = loadImage("assets/YUUSHA.png");
 		playerMaeImg1 = cutImage(playerAllImg, 0, 0, 32, 32);
@@ -113,7 +105,6 @@ public:
 	const int playerLife = 200;
 	const int playerAttckDamege = 22;
 	const int playerAttckDamege2 = 48;//武器入手時
-	const int playerHeal = 100;
 	//MONSTER1
 	const int monster1Life = 150;
 	const int monster1AttckDamege = 38;
@@ -161,37 +152,12 @@ public:
 	const float gameoverPx = 0.0f;
 	const float gameoverPy = 100.0f;
 	const float gameoverRad = 0.0f;
-	//AITEM_WINDOW
-	int aitemWindowImg = 0;
-	int playerAiconImg = 0;
-	int weaponAiconImg = 0;
-	int kaihukuAiconImg = 0;
-	int hougyokuAiconImg = 0;
-	const float aitemWindowPx = 100.0f;
-	const float aitemWindowPy = 420.0f;
-	const float playerAiconPx = 110.0f;
-	const float playerAiconPy = 452.0f;
-	const float weaponAiconPx = 238.0f;
-	const float weaponAiconPy = 452.0f;
-	const float kaihukuAiconPx = 366.0f;
-	const float kaihukuAiconPy = 452.0f;
-	const float hougyokuAiconPx = 494.0f;
-	const float hougyokuAiconPy = 452.0f;
-	const int weaponImgLife = 0;
-	const int kaihukuImgLife = 0;
-	const int hougyokuImgLife = 0;
-	//TEXT_WINDOW
-	int textWindowImg = 0;
-	const int textImgLife = 0;
-	const float textWindowPx = 100.0f;
-	const float textWindowPy = 400.0f;
+	//TEXT
+	int textImg = 0;
+	const float textPx = 50.0f;
+	const float textPy = 400.0f;
 	const float textRad = 0.0f;
-	const float textPx1 = 150.0f;
-	const float textPy1 = 450.0f;
-	const float textPx2 = 150.0f;
-	const float textPy2 = 475.0f;
-	const float textPx3 = 150.0f;
-	const float textPy3 = 500.0f;
+	const int textImgLife = 0;
 	//MAP
 	int iroiroAllImg = 0;
 	int fieldImg = 0;
@@ -229,8 +195,6 @@ public:
 	const int playerDayFlag1 = 0;
 	const int playerActionFlag = 0;
 	const int playerTextFlag = 0;
-	const int plyaerClearFlag = 0;
-	const int playerNgFlag = 0;
 
 	//MURABITO1
 	int murabito1AllImg = 0;
@@ -308,12 +272,11 @@ public:
 	int buttleTextWindowImg = 0;
 	int buttleTextMenyuImg = 0;
 	int buttleCursorImg = 0;
+	int buttleHpbarImg = 0;
 	const float buttleBackPx = 0.0f;
 	const float buttleBackPy = 0.0f;
 	const float buttleMonsterPx = 280.0f;
 	const float buttleMonsterPy = 75.0f;
-	const float buttlePlayerAiconPx = 585.0f;
-	const float buttlePlayerAiconPy = 390.0f;
 	const float buttleTextWindowPx = 200.0f;
 	const float buttleTextWindowPy = 350.0f;
 	const float buttleTextMenyuPx = 0.0f;
@@ -322,16 +285,18 @@ public:
 	const float buttleCursorPy = 403.0f;
 	const float buttlePlayerAttckPx = 305.0f;
 	const float buttlePlayerAttckPy = 75.0f;
+	const float buttleHpbarPx = 600.0f;
+	const float buttleHpbarPy = 540.0f;
 	const float buttleRadian = 3.141592 / 180.0f;
 	const float buttleRad = 0.0f;
 	const int buttleAttckImgLife = 0;
 	const int buttleImgCnt = 0;
 	const int buttleDamegeCnt = 0;
-	const int buttlePlaerActionFlag = 0;
+	const int buttlePlayerAttckFlag = 0;
 	const int buttleMonsterAttckFlag = 0;
 	const float buttleTextPx1 = 250.0f;
 	const float buttleTextPy1 = 425.0f;
-	const float buttleTextPx2 = 250.0f;
+	const float buttleTextPx2 = 200.0f;
 	const float buttleTextPy2 = 450.0f;
 	const float buttletatakauPx = 75.0f;
 	const float buttletatakauPy = 425.0f;
@@ -339,18 +304,10 @@ public:
 	const float buttlekaihukuPy = 475.0f;
 	const float buttlenigeruPx = 75.0f;
 	const float buttlenigeruPy = 525.0f;
-	const int buttleTextFlag = 0;
-	const int buttlePlayerWin = 0;
-	const int buttlePlayerLose = 0;
 	const int buttlePlayerEscape = 0;
-	//HPバー
-	int HpbarImg = 0;
-	const float HpbarPx = 600.0f;
-	const float HpbarPy = 540.0f;
-	const float HpbarTextPx1 = 605.0f;
-	const float HpbarTextPy1 = 540.0f;
-	const float HpbarTextPx2 = 635.0f;
-	const float HpbarTextPy2 = 540.0f;
+
+
+
 
 	//~CONTAINER();
 	////ファイルからデータを読み込む
