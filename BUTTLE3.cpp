@@ -21,7 +21,6 @@ void BUTTLE3::init(CONTAINER* c) {
 	ToRad = c->buttleRadian;
 	DamegeCnt = c->buttleDamegeCnt;
 	AttckImgLife = c->buttleAttckImgLife;
-	PlayerAttckFlag = c->buttlePlayerAttckFlag;
 	MonsterAttckFlag = c->buttleMonsterAttckFlag;
 	TextWindowImg = c->buttleTextWindowImg;
 	TextWindowPx = c->buttleTextWindowPx;

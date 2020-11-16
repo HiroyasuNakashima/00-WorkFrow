@@ -31,9 +31,10 @@ void PLAYER::init(CONTAINER* c) {
 	Life = c->playerLife;
 	ActionFlag = c->playerActionFlag;
 	TextFlag = c->playerTextFlag;
-	
+	ClearFlag = c->plyaerClearFlag;
+	NgFlag = c->playerNgFlag;
 }
-void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MONSTER3* e3) {
+void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MONSTER3* e3,AITEM_WINDOW* a) {
 	//移動
 	//現在の場所をWx,Wyに記憶させておく
 	if (TextFlag == 0) { //話しかけ中でないなら行動出来る
@@ -124,38 +125,47 @@ void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MO
 			if (p_m1len < 33.0f) {//距離の範囲内なら
 				if (Py == m1->py() - 32.0f && AnimImg1 == MaeImg1) { //PLAYERの位置とIMG画像で向きと場所を判断
 					m1->ushiroImg();
-					TextFlag = 1;
 				}
 				if (Py == m1->py() + 32.0f && AnimImg1 == UshiroImg1) {
 					m1->maeImg();
-					TextFlag = 1;
 				}
 				if (Px == m1->px() - 32.0f && AnimImg1 == RightImg1) {
 					m1->leftImg();
-					TextFlag = 1;
 				}
 				if (Px == m1->px() + 32.0f && AnimImg1 == LeftImg1) {
 					m1->rightImg();
+				}
+				if (NgFlag != 0 || ClearFlag != 0){//NG会話
+					TextFlag = 6;
+				}
+				if (NgFlag == 0 && ClearFlag == 0) {//OK会話
 					TextFlag = 1;
+					a->setWeaponImgLife(1);
+					NgFlag = 1;
 				}
 			}
 			//MURABITO2
 			if (p_m2len < 33.0f) {//距離の範囲内なら
 				if (Py == m2->py() - 32.0f && AnimImg1 == MaeImg1) { //PLAYERの位置とIMG画像で向きと場所を判断
 					m2->ushiroImg();
-					TextFlag = 2;
 				}
 				if (Py == m2->py() + 32.0f && AnimImg1 == UshiroImg1) {
 					m2->maeImg();
-					TextFlag = 2;
 				}
 				if (Px == m2->px() - 32.0f && AnimImg1 == RightImg1) {
 					m2->leftImg();
-					TextFlag = 2;
 				}
 				if (Px == m2->px() + 32.0f && AnimImg1 == LeftImg1) {
 					m2->rightImg();
+				}
+				if (NgFlag != 0 || ClearFlag != 1) {//NG会話
+					TextFlag = 7;
+					NgFlag = 1;
+				}
+				if (NgFlag == 0 && ClearFlag == 1) {//OK会話
 					TextFlag = 2;
+					ClearFlag = 2;
+					a->setHougyokuImgLife(1);
 				}
 			}
 			//MONSTER1
@@ -262,8 +272,13 @@ bool PLAYER::collision() {//フィールドとの当たり判定
 
 void PLAYER::setActionFlag(int flag) { ActionFlag = flag; }
 void PLAYER::setTextFlag(int flag) { TextFlag = flag; }
+void PLAYER::setLife(int life) { Life = life; }
+void PLAYER::setClearFlag(int flag) { ClearFlag = flag; }
+void PLAYER::setNgFlag(int flag) { NgFlag = flag; }
 int PLAYER::life() { return Life; }
 float PLAYER::px() { return Px; }
 float PLAYER::py() { return Py; }
 int PLAYER::actionFlag() { return ActionFlag; }
 int PLAYER::textFlag() { return TextFlag; }
+int PLAYER::clearFlag() { return ClearFlag; }
+int PLAYER::ngFlag() { return NgFlag; }

@@ -12,6 +12,7 @@
 #include"BUTTLE1.h"
 #include"BUTTLE2.h"
 #include"BUTTLE3.h"
+#include"AITEMWINDOW.h"
 #include"GAME.h"
 
 GAME::GAME() {
@@ -29,6 +30,7 @@ GAME::GAME() {
 	Buttle1 = new BUTTLE1;
 	Buttle2 = new BUTTLE2;
 	Buttle3 = new BUTTLE3;
+	Aitem = new AITEM_WINDOW;
 	Map = new MAP;
 	Title->init(C);
 }
@@ -36,6 +38,7 @@ GAME::~GAME() {
 	delete T;
 	delete Gameover;
 	delete Title;
+	delete Aitem;
 	delete Player;
 	delete Murabito1;
 	delete Murabito2;
@@ -62,6 +65,7 @@ void GAME::proc() {
 		Monster1->init(C);
 		Monster2->init(C);
 		Monster3->init(C);
+		Aitem->init(C);
 		Map->init(C);
 		if (isTrigger(KEY_ENTER)) {
 			GameState = GAME_PLAY;
@@ -69,7 +73,8 @@ void GAME::proc() {
 		break;
 	case GAME_PLAY:
 		Map->draw();
-		Player->update(Murabito1, Murabito2, Monster1, Monster2, Monster3);
+		Aitem->draw();
+		Player->update(Murabito1, Murabito2, Monster1, Monster2, Monster3, Aitem);
 		Murabito1->update();
 		Murabito2->update();
 		Monster1->update();
@@ -84,11 +89,11 @@ void GAME::proc() {
 		Monster3->draw();
 		T->draw(Player);
 		if (Player->actionFlag() == 3) {
-			Buttle1->init(C);
+			Buttle1->init(C, Player,Aitem);
 			GameState = GAME_BUTTLE1;
 		}
 		if (Player->actionFlag() == 4) {
-			Buttle2->init(C);
+			Buttle2->init(C,Player,Aitem);
 			GameState = GAME_BUTTLE2;
 		}
 		if (Player->actionFlag() == 5) {
@@ -97,11 +102,14 @@ void GAME::proc() {
 		}
 		break;
 	case GAME_BUTTLE1:
-			Buttle1->update();
+			Buttle1->update(Aitem);
 			Buttle1->draw();
 		if (Buttle1->playerWin() == 1) {
+			Aitem->setHealImgLife(1);
 			Monster1->setImgLife(0);
 			Player->setActionFlag(0);
+			Player->setClearFlag(1);
+			Player->setNgFlag(0);
 			GameState = GAME_PLAY;
 		}
 		else if (Buttle1->playerLose() == 1) {
@@ -113,9 +121,10 @@ void GAME::proc() {
 		}
 		break;
 	case GAME_BUTTLE2:
-		Buttle2->update();
+		Buttle2->update(Aitem);
 		Buttle2->draw();
 		if (Buttle2->playerWin() == 1) {
+			Aitem->setHealImgLife(1);
 			Monster2->setImgLife(0);
 			Player->setActionFlag(0);
 			GameState = GAME_PLAY;
@@ -132,6 +141,7 @@ void GAME::proc() {
 		Buttle3->update();
 		Buttle3->draw();
 		if (Buttle3->playerWin() == 1) {
+			Aitem->setHealImgLife(1);
 			Monster3->setImgLife(0);
 			Player->setActionFlag(0);
 			GameState = GAME_PLAY;

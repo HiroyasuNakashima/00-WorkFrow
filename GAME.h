@@ -12,6 +12,7 @@ class MONSTER3;
 class BUTTLE1;
 class BUTTLE2;
 class BUTTLE3;
+class AITEM_WINDOW;
 
 class GAME {
 public:
@@ -38,4 +39,5 @@ private:
 	BUTTLE1* Buttle1 = 0;
 	BUTTLE2* Buttle2 = 0;
 	BUTTLE3* Buttle3 = 0;
+	AITEM_WINDOW* Aitem = 0;
 };

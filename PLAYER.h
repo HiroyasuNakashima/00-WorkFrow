@@ -5,21 +5,27 @@
 #include"MONSTER1.h"
 #include"MONSTER2.h"
 #include"MONSTER3.h"
+#include"AITEMWINDOW.h"
 #include"MAP.h"
 
 class PLAYER {
 public:
 	void init(CONTAINER* c);
-	void update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MONSTER3* e3);
+	void update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MONSTER3* e3,AITEM_WINDOW* a);
 	void draw();
 	void setActionFlag(int flag);
 	void setTextFlag(int flag);
+	void setLife(int life);
+	void setClearFlag(int flag);
+	void setNgFlag(int flag);
 	bool collision();
 	int life();
 	float px();
 	float py();
 	int actionFlag();
 	int textFlag();
+	int clearFlag();
+	int ngFlag();
 private:
 	int Img = 0;
 	int AnimImg1 = 0;
@@ -55,4 +61,6 @@ private:
 	int ActionFlag;//他キャラに話すと立つFlag
 	int TextFlag;//表示するテキストを決めるFlag
 	int PlayerEscape;
+	int ClearFlag;
+	int NgFlag;
 };

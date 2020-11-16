@@ -7,11 +7,17 @@ public:
 	void update(PLAYER* p);
 	void draw(PLAYER* p);
 private:
-	int Img;
+	int WindowImg;
 	int TextImg1 = 0;
 	int TextImg2 = 0;
-	float Px;
-	float Py;
+	float WindowPx;
+	float WindowPy;
 	float Rad;
+	float TextPx1;//1s–Ú
+	float TextPy1;
+	float TextPx2;//2s–Ú
+	float TextPy2;
+	float TextPx3;//3s–Ú
+	float TextPy3;
 	int ImgLife;
 };
