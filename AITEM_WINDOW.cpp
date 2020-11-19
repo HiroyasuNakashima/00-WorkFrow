@@ -1,5 +1,6 @@
 #include"AITEM_WINDOW.h"
 
+//
 void AITEM_WINDOW::init(CONTAINER* c) {
 	WindowImg = c->aitemWindowImg;
 	PlayerImg = c->playerAiconImg;
