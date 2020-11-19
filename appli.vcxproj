@@ -146,12 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AITEM_WINDOW.cpp" />
     <ClCompile Include="BUTTLE1.cpp" />
     <ClCompile Include="BUTTLE2.cpp" />
     <ClCompile Include="BUTTLE3.cpp" />
     <ClCompile Include="CONTAINER.cpp" />
     <ClCompile Include="DATA.cpp" />
     <ClCompile Include="GAME.cpp" />
+    <ClCompile Include="GAMECLEAR.cpp" />
     <ClCompile Include="GAMEOVER.cpp" />
     <ClCompile Include="gmain.cpp" />
     <ClCompile Include="MAP.cpp" />
@@ -161,6 +163,7 @@
     <ClCompile Include="MURABITO1.cpp" />
     <ClCompile Include="MURABITO2.cpp" />
     <ClCompile Include="PLAYER.cpp" />
+    <ClCompile Include="SAIDAN.cpp" />
     <ClCompile Include="TEXT.cpp" />
     <ClCompile Include="TITLE.cpp" />
   </ItemGroup>
@@ -171,12 +174,14 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AITEM_WINDOW.h" />
     <ClInclude Include="BUTTLE1.h" />
     <ClInclude Include="BUTTLE2.h" />
     <ClInclude Include="BUTTLE3.h" />
     <ClInclude Include="CONTAINER.h" />
     <ClInclude Include="DATA.h" />
     <ClInclude Include="GAME.h" />
+    <ClInclude Include="GAMECLEAR.h" />
     <ClInclude Include="GAMEOVER.h" />
     <ClInclude Include="MAP.h" />
     <ClInclude Include="MONSTER1.h" />
@@ -185,6 +190,7 @@
     <ClInclude Include="MURABITO1.h" />
     <ClInclude Include="MURABITO2.h" />
     <ClInclude Include="PLAYER.h" />
+    <ClInclude Include="SAIDAN.h" />
     <ClInclude Include="TEXT.h" />
     <ClInclude Include="TITLE.h" />
   </ItemGroup>

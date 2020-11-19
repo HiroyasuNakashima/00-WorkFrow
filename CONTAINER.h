@@ -15,8 +15,8 @@ public:
 		//MAP
 		iroiroAllImg = loadImage("assets/IROIRO.png");
 		fieldImg = cutImage(iroiroAllImg, 0, 0, 32, 32);
-		//森
-		moriImg = cutImage(iroiroAllImg, 64, 32, 32, 32);
+		//祭壇
+		saidanImg = cutImage(iroiroAllImg, 44, 400, 32, 32);
 		//橋
 		hashiTateImg = cutImage(iroiroAllImg, 44, 93, 32, 32);
 		hashiYokoImg = cutImage(iroiroAllImg, 0, 96, 32, 32);
@@ -25,8 +25,16 @@ public:
 		pushenterImg = loadImage("assets/PUSH_ENTER.png");
 		//GAMEOVER
 		gameoverImg = loadImage("assets/GAMEOVER.png");
+		//GAMECLEAR
+		gameclearBackImg = loadImage("assets/GAMECLEAR_BACK.png");
 		//TEXT
-		textImg = loadImage("assets/TEXTWINDOW.png");
+		textWindowImg = loadImage("assets/TEXTWINDOW.png");
+		//AITEM_AICON
+		aitemWindowImg = loadImage("assets/AITEM_WINDOW.png");
+		playerAiconImg = loadImage("assets/PLAYER_AICON.png");
+		weaponAiconImg = loadImage("assets/WEAPON_AICON.png");
+		kaihukuAiconImg = loadImage("assets/KAIHUKU_AICON.png");
+		hougyokuAiconImg = loadImage("assets/HOUGYOKU_AICON.png");
 		//PLAYER
 		playerAllImg = loadImage("assets/YUUSHA.png");
 		playerMaeImg1 = cutImage(playerAllImg, 0, 0, 32, 32);
@@ -99,20 +107,22 @@ public:
 		//エフェクト
 		playerAttckAllImg = loadImage("assets/EFECT1.png"); //剣撃 
 		playerAttckImg = cutImage(playerAttckAllImg, 720, 0, 240, 240);
+		//HP_BAR
+		hpbarImg = loadImage("assets/HP_BAR.png");
 	}
 	//プレイヤー、モンスターのHPやダメージ量----------------------------------
 	//PLAYER
 	const int playerLife = 200;
 	const int playerAttckDamege = 22;
-	const int playerAttckDamege2 = 48;//武器入手時
+	const int playerAttckDamege2 = 45;//武器入手時
 	//MONSTER1
 	const int monster1Life = 150;
 	const int monster1AttckDamege = 38;
 	//MONSTER2
-	const int monster2Life = 250;
+	const int monster2Life = 180;
 	const int monster2AttckDamege = 56;
 	//MONSTER3
-	const int monster3Life = 300;
+	const int monster3Life = 250;
 	const int monster3AttckDamege = 48;
 
 	//CONTAINER---------------------------------------------------
@@ -147,26 +157,58 @@ public:
 	const float pushenterTitlePy = 425.0f;
 	const float pushenterRad = 0.0f;
 	const int pushenterCnt = 0;
+	//GAMECLEAR
+	int gameclearImg = 0;
+	int gameclearBackImg = 0;
+	const float gameclearPx = 0.0f;
+	const float gameclearPy = 100.0f;
+	const float gameclearBackPx = 0.0f;
+	const float gameclearBackPy = 0.0f;
 	//GAMEOVER
 	int gameoverImg = 0;
 	const float gameoverPx = 0.0f;
 	const float gameoverPy = 100.0f;
 	const float gameoverRad = 0.0f;
 	//TEXT
-	int textImg = 0;
-	const float textPx = 50.0f;
-	const float textPy = 400.0f;
-	const float textRad = 0.0f;
+	int textWindowImg = 0;
+	const float textWindowPx = 100.0f;
+	const float textWindowPy = 400.0f;
+	const float textPx1 = 150.0f;
+	const float textPy1 = 450.0f;
+	const float textPx2 = 150.0f;
+	const float textPy2 = 475.0f;
 	const int textImgLife = 0;
 	//MAP
 	int iroiroAllImg = 0;
 	int fieldImg = 0;
 	const float rad = 0.0f;
-	//森
-	int moriImg = 0;
+	//祭壇
+	int saidanImg = 0;
+	const float saidanPx = 416.0f;
+	const float saidanPy = 384.0f;
 	//橋
 	int hashiTateImg = 0;
 	int hashiYokoImg = 0;
+	//AITEM_AICON
+	int aitemWindowImg = 0;
+	int playerAiconImg = 0;
+	int weaponAiconImg = 0;
+	int kaihukuAiconImg = 0;
+	int hougyokuAiconImg = 0;
+	const float aitemWindowPx = 100.0f;
+	const float aitemWindowPy = 450.0f;
+	const float playerAiconPx = 130.0f;
+	const float playerAiconPy = 462.5f;
+	const float weaponAiconPx = 255.0f;
+	const float weaponAiconPy = 462.5f;
+	const float kaihukuAiconPx = 380.0f;
+	const float kaihukuAiconPy = 462.5f;
+	const float hougyokuAiconPx = 505.0f;
+	const float hougyokuAiconPy = 462.5f;
+	const int aitemWindowLife = 1;
+	const int weaponImgLife = 0;
+	const int kaihukuImgLife = 0;
+	const int hougyokuImgLife = 0;
 	//ANIM
 	const int imgLife = 1;
 	//PLAYER
@@ -195,7 +237,8 @@ public:
 	const int playerDayFlag1 = 0;
 	const int playerActionFlag = 0;
 	const int playerTextFlag = 0;
-
+	const int okFlag = 0;
+	const int ngFlag = 0;
 	//MURABITO1
 	int murabito1AllImg = 0;
 	int murabito1MaeImg1 = 0;
@@ -264,6 +307,10 @@ public:
 	//エフェクト
 	int playerAttckAllImg = 0;
 	int playerAttckImg = 0;
+	//HP_BAR
+	int hpbarImg = 0;
+	const float hpbarPx = 630.0f;
+	const float hpbarPy = 550.0f;
 	//BUTTLE
 	int buttleBackImg = 0;
 	int buttleMonster1Img = 0;
@@ -285,25 +332,33 @@ public:
 	const float buttleCursorPy = 403.0f;
 	const float buttlePlayerAttckPx = 305.0f;
 	const float buttlePlayerAttckPy = 75.0f;
-	const float buttleHpbarPx = 600.0f;
-	const float buttleHpbarPy = 540.0f;
 	const float buttleRadian = 3.141592 / 180.0f;
 	const float buttleRad = 0.0f;
 	const int buttleAttckImgLife = 0;
+	const int buttleMonsterImgLife = 1;
 	const int buttleImgCnt = 0;
 	const int buttleDamegeCnt = 0;
-	const int buttlePlayerAttckFlag = 0;
 	const int buttleMonsterAttckFlag = 0;
+	const int buttleTextFlag = 0;
 	const float buttleTextPx1 = 250.0f;
 	const float buttleTextPy1 = 425.0f;
 	const float buttleTextPx2 = 200.0f;
 	const float buttleTextPy2 = 450.0f;
+	const float buttleHpTextPx1 = 635.0f;
+	const float buttleHpTextPy1 = 540.0f;
+	const float buttleHpTextPx2 = 665.0f;
+	const float buttleHpTextPy2 = 540.0f;
 	const float buttletatakauPx = 75.0f;
 	const float buttletatakauPy = 425.0f;
 	const float buttlekaihukuPx = 75.0f;
 	const float buttlekaihukuPy = 475.0f;
 	const float buttlenigeruPx = 75.0f;
 	const float buttlenigeruPy = 525.0f;
+	const float buttlePlayerAiconPx = 608.0f;
+	const float buttlePlayerAiconPy = 390.0f;
+	const int buttlePlayerActionFlag = 0;
+	const int buttlePlayerWin = 0;
+	const int buttlePlayerLose = 0;
 	const int buttlePlayerEscape = 0;
 
 

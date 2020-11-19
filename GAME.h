@@ -1,8 +1,10 @@
 class CONTAINER;
 class TEXT;
 class GAMEOVER;
+class GAMECLEAR;
 class TITLE;
 class MAP;
+class AITEM_WINDOW;
 class PLAYER;
 class MURABITO1;
 class MURABITO2;
@@ -12,6 +14,7 @@ class MONSTER3;
 class BUTTLE1;
 class BUTTLE2;
 class BUTTLE3;
+class SAIDAN;
 
 class GAME {
 public:
@@ -20,13 +23,14 @@ public:
 	void proc();
 	enum GAME_STATE {
 		GAME_TITLE, GAME_PLAY, GAME_BUTTLE1, GAME_BUTTLE2, GAME_BUTTLE3,
-		GAME_GAMEOVER, GAME_CLEAR
+		GAME_GAMEOVER, GAME_GAMECLEAR
 	};
 private:
 	GAME_STATE GameState = GAME_TITLE;
 	CONTAINER* C = 0;
 	TEXT* T = 0;
 	GAMEOVER* Gameover = 0;
+	GAMECLEAR* Gameclear = 0;
 	TITLE* Title = 0;
 	MAP* Map = 0;
 	PLAYER* Player = 0;
@@ -38,4 +42,6 @@ private:
 	BUTTLE1* Buttle1 = 0;
 	BUTTLE2* Buttle2 = 0;
 	BUTTLE3* Buttle3 = 0;
+	SAIDAN* S = 0;
+	AITEM_WINDOW* Aitem = 0;
 };

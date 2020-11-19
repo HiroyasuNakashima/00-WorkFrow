@@ -31,9 +31,10 @@ void PLAYER::init(CONTAINER* c) {
 	Life = c->playerLife;
 	ActionFlag = c->playerActionFlag;
 	TextFlag = c->playerTextFlag;
-	
+	OkFlag = c->okFlag;
+	NgFlag = c->ngFlag;
 }
-void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MONSTER3* e3) {
+void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MONSTER3* e3, AITEM_WINDOW* a,SAIDAN* s) {
 	//移動
 	//現在の場所をWx,Wyに記憶させておく
 	if (TextFlag == 0) { //話しかけ中でないなら行動出来る
@@ -104,7 +105,11 @@ void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MO
 		float px_e3x = e3->px() - Px;
 		float py_e3y = e3->py() - Py;
 		float p_e3len = sqrt(px_e3x * px_e3x + py_e3y * py_e3y);
-		
+		//SAIDANとの距離
+		float px_sx = s->px() - Px;
+		float py_sy = s->py() - Py;
+		float p_slen = sqrt(px_sx * px_sx + py_sy * py_sy);
+
 		if (collision() == false) {//フィールドの当たり判定
 			Px = Wx;
 			Py = Wy;
@@ -112,7 +117,7 @@ void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MO
 			DayFlag1 = 1;//このフラグが立つ間Dayは減らない
 		}
 
-		if (p_m1len < 32.0f || p_m2len < 32.0f || p_e1len < 32.0f || p_e2len < 32.0f || p_e3len < 32.0f) {
+		if (p_m1len < 32.0f || p_m2len < 32.0f || p_e1len < 32.0f || p_e2len < 32.0f || p_e3len < 32.0f || p_slen < 32.0f) {
 			Px = Wx;//元の位置に戻す
 			Py = Wy;
 			DirectionCnt = 0;//0にすることでPLAYERが他キャラに向かって行った後、すぐ動ける
@@ -124,38 +129,98 @@ void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MO
 			if (p_m1len < 33.0f) {//距離の範囲内なら
 				if (Py == m1->py() - 32.0f && AnimImg1 == MaeImg1) { //PLAYERの位置とIMG画像で向きと場所を判断
 					m1->ushiroImg();
-					TextFlag = 1;
+					if (OkFlag == 0 && NgFlag == 0) {
+						TextFlag = 1;
+						OkFlag = 1;
+						a->setWeaponImgLife(1);
+					}
+					else {
+						TextFlag = 6;
+					}
 				}
 				if (Py == m1->py() + 32.0f && AnimImg1 == UshiroImg1) {
 					m1->maeImg();
-					TextFlag = 1;
+					if (OkFlag == 0 && NgFlag == 0) {
+						TextFlag = 1;
+						OkFlag = 1;
+						a->setWeaponImgLife(1);
+					}
+					else {
+						TextFlag = 6;
+					}
 				}
 				if (Px == m1->px() - 32.0f && AnimImg1 == RightImg1) {
 					m1->leftImg();
-					TextFlag = 1;
+					if (OkFlag == 0 && NgFlag == 0) {
+						TextFlag = 1;
+						OkFlag = 1;
+						a->setWeaponImgLife(1);
+					}
+					else {
+						TextFlag = 6;
+					}
 				}
 				if (Px == m1->px() + 32.0f && AnimImg1 == LeftImg1) {
 					m1->rightImg();
-					TextFlag = 1;
+					if (OkFlag == 0 && NgFlag == 0) {
+						TextFlag = 1;
+						OkFlag = 1;
+						a->setWeaponImgLife(1);
+					}
+					else {
+						TextFlag = 6;
+					}
 				}
 			}
 			//MURABITO2
 			if (p_m2len < 33.0f) {//距離の範囲内なら
 				if (Py == m2->py() - 32.0f && AnimImg1 == MaeImg1) { //PLAYERの位置とIMG画像で向きと場所を判断
 					m2->ushiroImg();
-					TextFlag = 2;
+					if (OkFlag == 2 ) {
+						TextFlag = 2;
+						OkFlag = 3;
+						a->setHougyokuImgLife(1);
+					}
+					else {
+						TextFlag = 7;
+						NgFlag = 1;
+					}
 				}
 				if (Py == m2->py() + 32.0f && AnimImg1 == UshiroImg1) {
 					m2->maeImg();
-					TextFlag = 2;
+					if (OkFlag == 2 ) {
+						TextFlag = 2;
+						OkFlag = 3;
+						a->setHougyokuImgLife(1);
+					}
+					else {
+						TextFlag = 7;
+						NgFlag = 1;
+					}
 				}
 				if (Px == m2->px() - 32.0f && AnimImg1 == RightImg1) {
 					m2->leftImg();
-					TextFlag = 2;
+					if (OkFlag == 2) {
+						TextFlag = 2;
+						OkFlag = 3;
+						a->setHougyokuImgLife(1);
+					}
+					else {
+						TextFlag = 7;
+						NgFlag = 1;
+					}
 				}
 				if (Px == m2->px() + 32.0f && AnimImg1 == LeftImg1) {
 					m2->rightImg();
-					TextFlag = 2;
+					if (OkFlag == 2 ) {
+						TextFlag = 2;
+						OkFlag = 3;
+						a->setHougyokuImgLife(1);
+					}
+					else {
+						TextFlag = 7;
+						NgFlag = 1;
+					}
 				}
 			}
 			//MONSTER1
@@ -215,6 +280,17 @@ void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MO
 					TextFlag = 5;
 				}
 			}
+			//SAIDAN
+			if (p_slen < 33.0f) {//距離の範囲内なら
+				if ((Py == s->py() - 32.0f || Px == s->px() + 32.0f) && (AnimImg1 == MaeImg1 || AnimImg1 == RightImg1)) { //PLAYERの位置とIMG画像で向きと場所を判断
+					if (a->hougyokuImgLife() == 1) {
+						TextFlag = 8;
+					}
+					else {
+						TextFlag = 9;
+					}
+				}
+			}
 		}
 	}
 	//残り日数
@@ -262,8 +338,11 @@ bool PLAYER::collision() {//フィールドとの当たり判定
 
 void PLAYER::setActionFlag(int flag) { ActionFlag = flag; }
 void PLAYER::setTextFlag(int flag) { TextFlag = flag; }
+void PLAYER::setOkFlag(int flag) { OkFlag = flag; }
 int PLAYER::life() { return Life; }
 float PLAYER::px() { return Px; }
 float PLAYER::py() { return Py; }
 int PLAYER::actionFlag() { return ActionFlag; }
 int PLAYER::textFlag() { return TextFlag; }
+int PLAYER::day() { return Day; }
+int PLAYER::okFlag() { return OkFlag; }

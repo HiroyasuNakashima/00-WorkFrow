@@ -1,6 +1,7 @@
 #include"CONTAINER.h"
 #include"TEXT.h"
 #include"GAMEOVER.h"
+#include"GAMECLEAR.h"
 #include"TITLE.h"
 #include"MAP.h"
 #include"PLAYER.h"
@@ -12,6 +13,8 @@
 #include"BUTTLE1.h"
 #include"BUTTLE2.h"
 #include"BUTTLE3.h"
+#include"SAIDAN.h"
+#include"AITEM_WINDOW.h"
 #include"GAME.h"
 
 GAME::GAME() {
@@ -19,6 +22,7 @@ GAME::GAME() {
 	C = new CONTAINER;
 	T = new TEXT;
 	Gameover = new GAMEOVER;
+	Gameclear = new GAMECLEAR;
 	Title = new TITLE;
 	Player = new PLAYER;
 	Murabito1 = new MURABITO1;
@@ -29,6 +33,8 @@ GAME::GAME() {
 	Buttle1 = new BUTTLE1;
 	Buttle2 = new BUTTLE2;
 	Buttle3 = new BUTTLE3;
+	S = new SAIDAN;
+	Aitem = new AITEM_WINDOW;
 	Map = new MAP;
 	Title->init(C);
 }
@@ -42,10 +48,13 @@ GAME::~GAME() {
 	delete Monster1;
 	delete Monster2;
 	delete Monster3;
+	delete S;
 	delete Buttle1;
 	delete Buttle2;
 	delete Buttle3;
+	delete Aitem;
 	delete Map;
+	delete Gameclear;
 	delete C;
 }
 void GAME::proc() {
@@ -55,52 +64,67 @@ void GAME::proc() {
 	case GAME_TITLE:
 		Title->draw();
 		T->init(C);
+		S->init(C);
 		Player->init(C);
 		Gameover->init(C);
+		Gameclear->init(C);
 		Murabito1->init(C);
 		Murabito2->init(C);
 		Monster1->init(C);
 		Monster2->init(C);
 		Monster3->init(C);
+		Aitem->init(C);
 		Map->init(C);
 		if (isTrigger(KEY_ENTER)) {
 			GameState = GAME_PLAY;
 		}
 		break;
 	case GAME_PLAY:
-		Map->draw();
-		Player->update(Murabito1, Murabito2, Monster1, Monster2, Monster3);
-		Murabito1->update();
-		Murabito2->update();
-		Monster1->update();
-		Monster2->update();
-		Monster3->update();
-		T->update(Player);
-		Player->draw();
-		Murabito1->draw();
-		Murabito2->draw();
-		Monster1->draw();
-		Monster2->draw();
-		Monster3->draw();
-		T->draw(Player);
-		if (Player->actionFlag() == 3) {
-			Buttle1->init(C);
-			GameState = GAME_BUTTLE1;
+		if (Player->day() != 0 && Player->okFlag() != 5) {
+			Map->draw();
+			Aitem->draw();
+			Player->update(Murabito1, Murabito2, Monster1, Monster2, Monster3, Aitem,S);
+			Murabito1->update();
+			Murabito2->update();
+			Monster1->update();
+			Monster2->update();
+			Monster3->update();
+			S->draw();
+			T->update(Player, Aitem);
+			Player->draw();
+			Murabito1->draw();
+			Murabito2->draw();
+			Monster1->draw();
+			Monster2->draw();
+			Monster3->draw();
+			T->draw(Player);
+			if (Player->actionFlag() == 3) {
+				Buttle1->init(C, Aitem);
+				GameState = GAME_BUTTLE1;
+			}
+			if (Player->actionFlag() == 4) {
+				Buttle2->init(C, Aitem);
+				GameState = GAME_BUTTLE2;
+			}
+			if (Player->actionFlag() == 5) {
+				Buttle3->init(C, Aitem);
+				GameState = GAME_BUTTLE3;
+			}
 		}
-		if (Player->actionFlag() == 4) {
-			Buttle2->init(C);
-			GameState = GAME_BUTTLE2;
+		if (Player->day() == 0) {
+			GameState = GAME_GAMEOVER;
 		}
-		if (Player->actionFlag() == 5) {
-			Buttle3->init(C);
-			GameState = GAME_BUTTLE3;
+		if (Player->okFlag() == 5) {
+			GameState = GAME_GAMECLEAR;
 		}
 		break;
 	case GAME_BUTTLE1:
-			Buttle1->update();
-			Buttle1->draw();
+		Buttle1->update(Aitem);
+		Buttle1->draw();
 		if (Buttle1->playerWin() == 1) {
 			Monster1->setImgLife(0);
+			Aitem->setKaihukuImgLife(1);
+			Player->setOkFlag(2);
 			Player->setActionFlag(0);
 			GameState = GAME_PLAY;
 		}
@@ -113,10 +137,11 @@ void GAME::proc() {
 		}
 		break;
 	case GAME_BUTTLE2:
-		Buttle2->update();
+		Buttle2->update(Aitem);
 		Buttle2->draw();
 		if (Buttle2->playerWin() == 1) {
 			Monster2->setImgLife(0);
+			Aitem->setKaihukuImgLife(1);
 			Player->setActionFlag(0);
 			GameState = GAME_PLAY;
 		}
@@ -129,10 +154,11 @@ void GAME::proc() {
 		}
 		break;
 	case GAME_BUTTLE3:
-		Buttle3->update();
+		Buttle3->update(Aitem);
 		Buttle3->draw();
 		if (Buttle3->playerWin() == 1) {
 			Monster3->setImgLife(0);
+			Aitem->setKaihukuImgLife(1);
 			Player->setActionFlag(0);
 			GameState = GAME_PLAY;
 		}
@@ -150,5 +176,10 @@ void GAME::proc() {
 			GameState = GAME_TITLE;
 		}
 		break;
+	case GAME_GAMECLEAR:
+		Gameclear->draw();
+		if (isTrigger(KEY_ENTER)) {
+			GameState = GAME_TITLE;
+		}
 	}
 }

@@ -1,10 +1,11 @@
 #pragma once
 #include"CONTAINER.h"
+#include"AITEM_WINDOW.h"
 
 class BUTTLE3 {
 public:
-	void init(CONTAINER* c);
-	void update();
+	void init(CONTAINER* c, AITEM_WINDOW* a);
+	void update(AITEM_WINDOW* a);
 	void draw();
 	int playerWin();
 	int playerLose();
@@ -15,27 +16,30 @@ private:
 	int BackImg;
 	int MonsterImg;
 	int AttckImg;
+	int HpImg[20];
+	int PlayerAiconImg;
 	float BackPx;
 	float BackPy;
 	float MonsterPx;
 	float MonsterPy;
 	float AttckPx;
 	float AttckPy;
+	float HpPx[20];
+	float HpPy[20];
+	float PlayerAiconPx;
+	float PlayerAiconPy;
 	float Rad;
 	float Radian;
 	float ToRad;
 	int PlayerLife;
 	int PlayerAttckDamege;
-	int PlayerAttckDamege2;//武器入手時
 	int MonsterLife;
 	int MonsterAttckDamege;
-	int MonsterImgLife = 1;
+	int MonsterImgLife;
 	int DamegeCnt;//モンスターの点滅Cnt
 	int ImgCnt;
-	int CursorLife = 1;//カーソルの点滅用。たたかう中は消える
-	int PlayerAttckFlag; //攻撃中Flag
 	int MonsterAttckFlag;
-	int TextFlag = 0;
+	int TextFlag;
 	int TextWindowImg;
 	int TextMenyuImg;
 	int CursorImg;
@@ -51,14 +55,18 @@ private:
 	float TextPy1;
 	float TextPx2;
 	float TextPy2;
+	float HpTextPx1;
+	float HpTextPy1;
+	float HpTextPx2;
+	float HpTextPy2;
 	float tatakauPx;
 	float tatakauPy;
 	float kaihukuPx;
 	float kaihukuPy;
 	float nigeruPx;
 	float nigeruPy;
-	int ActionFlag = 0;
-	int PlayerWin = 0;
-	int PlayerLose = 0;
-	int PlayerEscape = 0;
+	int ActionFlag;
+	int PlayerWin;
+	int PlayerLose;
+	int PlayerEscape;
 };
