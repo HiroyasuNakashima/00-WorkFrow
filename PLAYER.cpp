@@ -43,7 +43,7 @@ void PLAYER::update(MURABITO1* m1, MURABITO2* m2, MONSTER1* e1, MONSTER2* e2, MO
 		collisionWx = Px;
 		collisionWy = Py;
 		DayFlag1 = 0;
-		if (Dx == 0.0f && Dy == 0.0f) {//キー入力が無いとき
+		if ((Dx != 0.0f && Dy == 0.0f) || (Dx == 0.0f && Dy != 0.0f)) {//キー入力が無いとき
 			if (isTrigger(KEY_UP)) {
 				Dy -= Speed;
 				DirectionCnt = 32;
