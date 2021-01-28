@@ -1,32 +1,11 @@
-#pragma once
-#include"CONTAINER.h"
+#include"CHARACTER.h"
 
-class MURABITO1 {
+class MURABITO1 :public CHARACTER {
 public:
-	void init(CONTAINER* c);
-	void update();
-	void draw();
-	void maeImg();
-	void ushiroImg();
-	void leftImg();
-	void rightImg();
-	float px();
-	float py();
+	MURABITO1();
 private:
-	int Img = 0;
-	int AnimImg1 = 0;
-	int AnimImg2 = 0;
-	int AnimCnt = 0;
-	int MaeImg1;
-	int MaeImg2;
-	int LeftImg1;
-	int LeftImg2;
-	int RightImg1;
-	int RightImg2;
-	int UshiroImg1;
-	int UshiroImg2;
-	float Px;
-	float Py;
-	float Rad;
-	int TxstFlag;
+	int FrontAnimId = 0;
+	int BackAnimId = 0;
+	int RightAnimId = 0;
+	int LeftAnimId = 0;
 };

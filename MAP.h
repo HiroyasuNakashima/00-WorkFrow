@@ -1,21 +1,21 @@
 #pragma once
-#include"CONTAINER.h"
-#include"PLAYER.h"
+class CONTAINER;
 
 class MAP {
 public:
-	void init(CONTAINER* c);
+	MAP();
+	~MAP();
+	void init();
 	void draw();
+	bool collisionCheck(float px, float py);
+	static void setContainer(CONTAINER* c) { C = c; }
 private:
-	int backImg;
-	float backPx;
-	float backPy;
-	float backRad;
-	int FieldImg = 0;
-	int HashiTateImg = 0;
-	int HashiYokoImg = 0;
+	int FieldImg;
+	int VerticalBridgeImg;
+	int SidewaysBridgeImg;
 	int ChipSize = 0;
-	char* MapData = 0;
+	char* Data = 0;
 	int NumDataColumns = 0;
 	int NumDataRows = 0;
+	static CONTAINER* C;
 };
