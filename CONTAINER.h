@@ -7,7 +7,7 @@
 #include"ANIM.h"
 #include"CHARACTER.h"
 #include"CHARACTER_MANAGER.h"
-#include"CONVERSATION.h"
+#include"TEXT_READ.h"
 
 class CONTAINER {
 public:
@@ -172,6 +172,6 @@ public:
 		CHARAMAP::setContainer(this);
 		CHARACTER::setContainer(this);
 		CHARACTER_MANAGER::setContainer(this);
-		CONVERSATION::setContainer(this);
+		TEXT_READ::setContainer(this);
 	}
 };

@@ -8,6 +8,7 @@
 #include"MONSTER2.h"
 #include"MONSTER3.h"
 #include"ALTAR.h"
+#include"TEXT_READ.h"
 #include"CHARACTER_MANAGER.h"
 CONTAINER* CHARACTER_MANAGER::C = 0;
 
@@ -30,8 +31,10 @@ CHARACTER_MANAGER::CHARACTER_MANAGER() {
 	for (i = 0; i < C->numMonster3; i++) { Charas[j++] = new MONSTER3; }
 	for (i = 0; i < C->numAltar; i++) { Charas[j++] = new ALTAR; }
 	CHARAMAP::setCharacterManager(this);
+	Conv = new TEXT_READ;
 }
 CHARACTER_MANAGER::~CHARACTER_MANAGER() {
+	delete Conv;
 	for (int i = 0; i < Total; i++) {
 		delete Charas[i];
 	}
@@ -61,13 +64,20 @@ void CHARACTER_MANAGER::update() {
 	//Zキーを押してPLAYERと他キャラが一定距離内に居たら向かい合わせる
 	if (isTrigger(KEY_Z)) {
 		playerAction(Charas[0]->animId());
-
+		Conv->init();
+		Flag = 1;
 	}
 }
 void CHARACTER_MANAGER::draw() {
 	for (int i = 0; i < Total; i++) {
 		if (Charas[i]->alpha() > 0.0f) {
 			Charas[i]->draw();
+		}
+	}
+	if (Flag == 1) {
+		Conv->draw();
+		if (isTrigger(KEY_X)) {
+			Flag = 0;
 		}
 	}
 }
@@ -97,21 +107,28 @@ void CHARACTER_MANAGER::playerAction(int animId) {//受け取ったanimIdと他キャラを
 			if (nextPx == Charas[i]->px() || nextPy == Charas[i]->py()) {
 				if (Charas[0]->animId() == 0) {
 					Charas[i]->setAnimId(1);
+					TextCharaId = Charas[i]->charaId();//charaIdを取得し、会話内容を確定させる。
 					break;
 				}
 				if (Charas[0]->animId() == 1) {
 					Charas[i]->setAnimId(0);
+					TextCharaId = Charas[i]->charaId();
 					break;
 				}
 				if (Charas[0]->animId() == 2) {
 					Charas[i]->setAnimId(3);
+					TextCharaId = Charas[i]->charaId();
 					break;
 				}
 				if (Charas[0]->animId() == 3) {
 					Charas[i]->setAnimId(2);
+					TextCharaId = Charas[i]->charaId();
 					break;
 				}
 			}
 		}
 	}
 }
+
+char CHARACTER_MANAGER::textCharaId() { return TextCharaId; }
+//char CHARACTER_MANAGER::setTextCharaId(char textCharaId) { TextCharaId = textCharaId; }
